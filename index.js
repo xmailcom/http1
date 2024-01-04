@@ -5,7 +5,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.set('port', (process.env.PORT || 5000));
-app.set('host', (process.env.HOST || '0.0.0.0'));
+app.set('host', (process.env.HOST || "0.0.0.0"));
 
 app.get('/', function(req, res) {
     res.header("Access-Control-Allow-Origin", req.headers.origin);
