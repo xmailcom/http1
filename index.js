@@ -7,6 +7,13 @@ app.use(express.urlencoded({ extended: true }));
 app.set('port', (process.env.PORT || 5000));
 app.set('host', (process.env.HOST || '0.0.0.0'));
 
+app.get('/', function(req, res) {
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    res.send({'status': 'ok'});
+});
+
 app.post('/x', function(req, res) {
     var url = req.body['url'];
     var headers = req.body['headers'];
