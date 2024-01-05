@@ -44,7 +44,11 @@ app.post('/x', function(req, res) {
         params: params,
         data: data,
     }).then(function(response) {
-        res.send({status: response.status, headers: response.headers, data: data});
+        res.send({
+            status: response.status, 
+            headers: response.headers, 
+            data: response.data
+        });
     });
 });
 
