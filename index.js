@@ -20,7 +20,7 @@ app.options('/x', function(req, res) {
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Methods", "OPTIONS, HEAD, GET, POST, PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, Accept, X-Requested-With");
-    res.status(204);
+    res.sendStatus(204);
 });
 
 app.post('/x', function(req, res) {
