@@ -30,12 +30,12 @@ app.post('/x', function(req, res) {
     var method = req.body['method'];
     var url = req.body['url'];
     var headers = req.body['headers'];
-    var parmas = req.body['params'];
+    var params = req.body['params'];
     var data = req.body['data'];
     console.log('method:', method);
     console.log('url:', url);
     console.log('headers:', headers);
-    console.log('parmas:', parmas);
+    console.log('params:', params);
     console.log('data:', data);
     axios.request({
         method: method,
