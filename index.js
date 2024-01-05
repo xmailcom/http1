@@ -1,4 +1,4 @@
-var request = require('request');
+var axios = require('axios');
 var express = require('express');
 var app = express();
 app.use(express.json());
@@ -30,18 +30,21 @@ app.post('/x', function(req, res) {
     var method = req.body['method'];
     var url = req.body['url'];
     var headers = req.body['headers'];
-    var body = req.body['body'];
+    var parmas = req.body['params'];
+    var data = req.body['data'];
     console.log('method:', method);
     console.log('url:', url);
     console.log('headers:', headers);
-    console.log('body:', body);
-    request({
+    console.log('parmas:', parmas);
+    console.log('data:', data);
+    axios.request({
+        method: method,
         url: url,
         headers: headers,
-        method: method,
-        body: body,
-    }, function(error, response, body) {
-        res.send({headers: response.headers, body: body});
+        params: params,
+        data: data,
+    }).then(function(response) {
+        res.send({status: response.status, headers: response.headers, data: data});
     });
 });
 
