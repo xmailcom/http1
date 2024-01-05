@@ -50,6 +50,7 @@ app.post('/x', function(req, res) {
             data: response.data
         });
     }).catch(function(error) {
+        console.log('error:', error);
         if (error.response) {
             var response = error.response;
             res.send({
