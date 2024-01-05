@@ -15,13 +15,9 @@ var set_cors_headers = function(req, res) {
     res.header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, Accept, X-Requested-With");
 }
 
-var options_handle = function(req, res) {
+app.options('*', function(req, res) {
     set_cors_headers(req, res);
     res.sendStatus(204);
-}
-
-app.options('/', function(req, res) {
-    options_handle(req, res);
 });
 
 app.get('/', function(req, res) {
@@ -29,11 +25,8 @@ app.get('/', function(req, res) {
     res.send({'status': 'ok'});
 }); 
 
-app.options('/x', function(req, res) {
-    options_handle(req, res);
-});
-
 app.post('/x', function(req, res) {
+    set_cors_headers(req, res);
     var method = req.body['method'];
     var url = req.body['url'];
     var headers = req.body['headers'];
@@ -48,7 +41,6 @@ app.post('/x', function(req, res) {
         method: method,
         body: body,
     }, function(error, response, body) {
-        set_cors_headers(req, res);
         res.send({headers: response.headers, body: body});
     });
 });
