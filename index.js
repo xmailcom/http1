@@ -10,19 +10,28 @@ app.set('host', (process.env.HOST || "0.0.0.0"));
 app.get('/', function(req, res) {
     res.header("Access-Control-Allow-Origin", req.headers.origin);
     res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    res.header("Access-Control-Allow-Methods", "OPTIONS, HEAD, GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, Accept, X-Requested-With");
     res.send({'status': 'ok'});
 });
 
+app.options('/x', function(req, res) {
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Methods", "OPTIONS, HEAD, GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, Accept, X-Requested-With");
+    res.status(204);
+});
+
 app.post('/x', function(req, res) {
+    var method = req.body['method'];
     var url = req.body['url'];
     var headers = req.body['headers'];
-    var method = req.body['method'];
     var body = req.body['body'];
-    console.log(url);
-    console.log(headers);
-    console.log(method);
-    console.log(body);
+    console.log('method:', method);
+    console.log('url:', url);
+    console.log('headers:', headers);
+    console.log('body:', body);
     request({
         url: url,
         headers: headers,
@@ -31,7 +40,8 @@ app.post('/x', function(req, res) {
     }, function(error, response, body) {
         res.header("Access-Control-Allow-Origin", req.headers.origin);
         res.header("Access-Control-Allow-Credentials", "true");
-        res.header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+        res.header("Access-Control-Allow-Methods", "OPTIONS, HEAD, GET, POST, PUT, DELETE");
+        res.header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Access-Control-Allow-Headers, Authorization, Accept, X-Requested-With");
         res.send({headers: response.headers, body: body});
     });
 });
