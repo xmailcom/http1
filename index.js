@@ -37,40 +37,33 @@ app.post('/x', function(req, res) {
     console.log('headers:', headers);
     console.log('params:', params);
     console.log('data:', data);
-    try {
-        axios.request({
-            method: method,
-            url: url,
-            headers: headers,
-            params: params,
-            data: data,
-        }).then(function(response) {
+    axios.request({
+        method: method,
+        url: url,
+        headers: headers,
+        params: params,
+        data: data,
+    }).then(function(response) {
+        res.send({
+            status: response.status, 
+            headers: response.headers, 
+            data: response.data
+        });
+    }).catch(function(error) {
+        console.log('error:', error);
+        if (error.response) {
+            var response = error.response;
             res.send({
-                status: response.status, 
-                headers: response.headers, 
+                status: response.status,
+                headers: response.headers,
                 data: response.data
             });
-        }).catch(function(error) {
-            console.log('error:', error);
-            if (error.response) {
-                var response = error.response;
-                res.send({
-                    status: response.status,
-                    headers: response.headers,
-                    data: response.data
-                });
-            } else {
-                res.send({
-                    status: -1
-                });
-            }
-        });
-    } catch (err) {
-        res.send({
-            status: -1,
-            data: err.toString()
-        });
-    }
+        } else {
+            res.send({
+                status: -1
+            });
+        }
+    });
 });
 
 app.listen(app.get('port'), app.get('host'), function() {
