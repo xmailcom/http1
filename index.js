@@ -49,6 +49,19 @@ app.post('/x', function(req, res) {
             headers: response.headers, 
             data: response.data
         });
+    }).catch(function(error) {
+        if (error.response) {
+            var response = error.response;
+            res.send({
+                status: response.status,
+                headers: response.headers,
+                data: response.data
+            });
+        } else {
+            res.send({
+                status: -1
+            });
+        }
     });
 });
 
