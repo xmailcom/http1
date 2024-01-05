@@ -12,6 +12,6 @@
   "dependencies": {
     "@vercel/node": "^1.15.0",
     "express": "^4.17.1",
-    "request": "^2.88.0"
+    "axios": "^1.1.2"
   }
 }
