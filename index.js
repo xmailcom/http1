@@ -1,6 +1,5 @@
 var axios = require('axios');
 var express = require('express');
-var Base64 = require('./base64');
 var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -50,7 +49,7 @@ app.post('/x', function(req, res) {
         res.send({
             status: response.status, 
             headers: response.headers, 
-            data: b == '' ? response.data : Base64.encode(response.data)
+            data: b == '' ? response.data : Buffer.from(response.data).toString('base64')
         });
     }).catch(function(error) {
         console.log('error:', error);
@@ -59,7 +58,7 @@ app.post('/x', function(req, res) {
             res.send({
                 status: response.status,
                 headers: response.headers,
-                data: b == '' ? response.data : Base64.encode(response.data)
+                data: b == '' ? response.data : Buffer.from(response.data).toString('base64')
             });
         } else {
             res.send({
