@@ -44,7 +44,7 @@ app.post('/x', function(req, res) {
         headers: headers,
         params: params,
         data: data,
-        responseType: 'arraybuffer'
+        responseType: b == '' ? 'json' : 'arraybuffer'
     }).then(function(response) {
         res.send({
             status: response.status, 
