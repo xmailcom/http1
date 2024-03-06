@@ -29,7 +29,7 @@ app.post('/x', function(req, res) {
     set_cors_headers(req, res);
     var method = req.body['method'];
     var url = req.body['url'];
-    var headers = req.body['headers'];
+    var headers = req.body['headers'] || {};
     var params = req.body['params'];
     var data = req.body['data'];
     var b = headers['b'] || '';
