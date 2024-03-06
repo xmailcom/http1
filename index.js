@@ -49,7 +49,7 @@ app.post('/x', function(req, res) {
         res.send({
             status: response.status, 
             headers: response.headers, 
-            data: response.data
+            data: b == '' ? response.data : Base64.encode(response.data)
         });
     }).catch(function(error) {
         console.log('error:', error);
