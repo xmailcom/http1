@@ -45,7 +45,7 @@ app.post('/x', function(req, res) {
         headers: headers,
         params: params,
         data: data,
-        responseType: 'blob'
+        responseType: 'arraybuffer'
     }).then(function(response) {
         res.send({
             status: response.status, 
