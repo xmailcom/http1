@@ -51,6 +51,7 @@ app.post('/x', function(req, res) {
             headers: headers,
             params: params,
             data: data,
+            decompress: false, // fix response a part data
             responseType: 'stream',
         }).then(function(response) {
             res.set(response.headers);
