@@ -27,7 +27,7 @@ app.get('/', function(req, res) {
 
 app.get('/x', function(req, res) {
     set_cors_headers(req, res);
-    res.send({status: 200, message: 'method,url,headers,params,data'});
+    res.send({status: 200, message: 'method,url,headers,params,data,timeout'});
 }); 
 
 app.post('/x', function(req, res) {
@@ -38,6 +38,7 @@ app.post('/x', function(req, res) {
     var params = req.body['params'];
     var data = req.body['data'];
     var b = headers['b'] || '';
+    var timeout  = req.body['timeout'] || 60000;
     console.log('method:', method);
     console.log('url:', url);
     console.log('headers:', headers);
@@ -52,6 +53,7 @@ app.post('/x', function(req, res) {
             params: params,
             data: data,
             decompress: false, // fix response a part data
+            timeout: timeout,
             responseType: 'stream',
         }).then(function(response) {
             res.set(response.headers);
@@ -79,6 +81,7 @@ app.post('/x', function(req, res) {
             headers: headers,
             params: params,
             data: data,
+            timeout: timeout,
             responseType: 'text'
         }).then(function(response) {
             res.send({
