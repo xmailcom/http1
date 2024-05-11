@@ -38,34 +38,63 @@ app.post('/x', function(req, res) {
     console.log('headers:', headers);
     console.log('params:', params);
     console.log('data:', data);
-    axios.request({
-        method: method,
-        url: url,
-        headers: headers,
-        params: params,
-        data: data,
-        responseType: b == '' ? 'json' : 'arraybuffer'
-    }).then(function(response) {
-        res.send({
-            status: response.status, 
-            headers: response.headers, 
-            data: b == '' ? response.data : Buffer.from(response.data).toString('base64')
+
+    if (b === '1') {
+        axios.request({
+            method: method,
+            url: url,
+            headers: headers,
+            params: params,
+            data: data,
+        }).then(function(response) {
+            res.set(response.headers);
+            set_cors_headers(req, res);
+            response.data.pipe(res);
+        }).catch(function(error) {
+            console.log('error:', error);
+            if (error.response) {
+                var response = error.response;
+                res.send({
+                    status: response.status,
+                    headers: response.headers,
+                    data: response.data
+                });
+            } else {
+                res.send({
+                    status: -1
+                });
+            }
+        })
+    } else {
+        axios.request({
+            method: method,
+            url: url,
+            headers: headers,
+            params: params,
+            data: data,
+            responseType: 'text'
+        }).then(function(response) {
+            res.send({
+                status: response.status, 
+                headers: response.headers, 
+                data: response.data
+            });
+        }).catch(function(error) {
+            console.log('error:', error);
+            if (error.response) {
+                var response = error.response;
+                res.send({
+                    status: response.status,
+                    headers: response.headers,
+                    data: response.data
+                });
+            } else {
+                res.send({
+                    status: -1
+                });
+            }
         });
-    }).catch(function(error) {
-        console.log('error:', error);
-        if (error.response) {
-            var response = error.response;
-            res.send({
-                status: response.status,
-                headers: response.headers,
-                data: b == '' ? response.data : Buffer.from(response.data).toString('base64')
-            });
-        } else {
-            res.send({
-                status: -1
-            });
-        }
-    });
+    }
 });
 
 app.listen(app.get('port'), app.get('host'), function() {
