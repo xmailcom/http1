@@ -27,7 +27,7 @@ app.get('/', function(req, res) {
 
 app.get('/x', function(req, res) {
     set_cors_headers(req, res);
-    res.send({status: 200, message: 'method,url,headers,params,data,timeout'});
+    res.send({status: 200, message: 'method,url,headers{b},params,data,config{timeout}'});
 }); 
 
 app.post('/x', function(req, res) {
@@ -37,13 +37,15 @@ app.post('/x', function(req, res) {
     var headers = req.body['headers'] || {};
     var params = req.body['params'];
     var data = req.body['data'];
+    var config = req.body['config'] || {};
     var b = headers['b'] || '';
-    var timeout  = req.body['timeout'] || 60000;
+    var timeout  = config['timeout'] || 60000;
     console.log('method:', method);
     console.log('url:', url);
     console.log('headers:', headers);
     console.log('params:', params);
     console.log('data:', data);
+    console.log('config:', config);
 
     if (b === '1') {
         axios.request({
