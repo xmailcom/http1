@@ -22,7 +22,12 @@ app.options('*', function(req, res) {
 
 app.get('/', function(req, res) {
     set_cors_headers(req, res);
-    res.send({'status': 'ok'});
+    res.send({'status': 200});
+});
+
+app.get('/x', function(req, res) {
+    set_cors_headers(req, res);
+    res.send({status: 200, message: 'method,url,headers,params,data'});
 }); 
 
 app.post('/x', function(req, res) {
