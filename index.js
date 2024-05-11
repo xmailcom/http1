@@ -51,6 +51,7 @@ app.post('/x', function(req, res) {
             headers: headers,
             params: params,
             data: data,
+            responseType: 'stream',
         }).then(function(response) {
             res.set(response.headers);
             set_cors_headers(req, res);
