@@ -30,6 +30,34 @@ app.get('/x', function(req, res) {
     res.send({status: 200, message: 'method,url,headers{b},params,data,config{timeout}'});
 }); 
 
+app.get('/ip', function(req, res) {
+    set_cors_headers(req, res);
+    axios.request({
+        method: 'GET',
+        url: 'https://api.vvhan.com/tool/cf_ip',
+    }).then(function(response) {
+        res.send({
+            status: 200, 
+            headers: response.headers, 
+            data: response.data.data
+        });
+    }).catch(function(error) {
+        console.log('error:', error);
+        if (error.response) {
+            var response = error.response;
+            res.send({
+                status: response.status,
+                headers: response.headers,
+                data: response.data
+            });
+        } else {
+            res.send({
+                status: -1
+            });
+        }
+    });
+});
+
 app.post('/x', function(req, res) {
     set_cors_headers(req, res);
     var method = req.body['method'];
