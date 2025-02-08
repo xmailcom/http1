@@ -43,14 +43,14 @@ app.get('/ip', function(req, res) {
             let ip = data_split[i];
             ips.push({ "ip": ip, "name": "", "colo": "", "latency": "", "speed": "", "uptime": "" });
         }
-        let send_data = JSON.stringify({
+        let send_data = {
         	"status": 200,
         	"data": {
         		"v4": {
         			"CM": ips
         		}
         	}
-        })
+        }
         res.send({
             status: 200, 
             headers: response.headers, 
