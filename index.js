@@ -36,7 +36,7 @@ app.get('/ip', function(req, res) {
         method: 'GET',
         url: 'https://raw.githubusercontent.com/xmailcom/pcip/refs/heads/main/ip.txt',
     }).then(function(response) {
-        let resp_data = response.data.data;
+        let resp_data = response.data;
         let data_split = resp_data.split('\n');
         let ips = [];
         for (let i = 0; i < data_split.length; i++) {
