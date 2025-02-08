@@ -44,12 +44,11 @@ app.get('/ip', function(req, res) {
             ips.push({ "ip": ip, "name": "", "colo": "", "latency": "", "speed": "", "uptime": "" });
         }
         let send_data = {
-        	"status": 200,
-        	"data": {
-        		"v4": {
-        			"CM": ips
-        		}
-        	}
+        	"v4": {
+                "CM": ips,
+                "CU": [],
+                "CT": []
+            }
         }
         res.send({
             status: 200, 
