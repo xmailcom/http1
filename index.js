@@ -34,12 +34,27 @@ app.get('/ip', function(req, res) {
     set_cors_headers(req, res);
     axios.request({
         method: 'GET',
-        url: 'https://api.vvhan.com/tool/cf_ip',
+        url: 'https://raw.githubusercontent.com/xmailcom/pcip/refs/heads/main/ip.txt',
     }).then(function(response) {
+        let resp_data = response.data.data;
+        let data_split = resp_data.split('\n');
+        let ips = [];
+        for (let i = 0; i < data_split.length; i++) {
+            let ip = data_split[i];
+            ips.push({ "ip": ip, "name": "", "colo": "", "latency": "", "speed": "", "uptime": "" });
+        }
+        let send_data = {
+        	"status": 200,
+        	"data": {
+        		"v4": {
+        			"CM": ips
+        		}
+        	}
+        }
         res.send({
             status: 200, 
             headers: response.headers, 
-            data: response.data.data
+            data: send_data
         });
     }).catch(function(error) {
         console.log('error:', error);
