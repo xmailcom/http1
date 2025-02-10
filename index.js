@@ -34,7 +34,7 @@ app.get('/ip', function(req, res) {
     set_cors_headers(req, res);
     axios.request({
         method: 'GET',
-        url: 'https://raw.githubusercontent.com/anginx2025/cpp/refs/heads/main/cpp.txt',
+        url: 'https://raw.githubusercontent.com/xmailcom/woqu/refs/heads/main/op.txt',
     }).then(function(response) {
         let resp_data = response.data;
         let data_split = resp_data.split('\n');
